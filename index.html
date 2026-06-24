@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human Energy Institute</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    overflow:hidden;
+    font-family:'Inter',sans-serif;
+    background:#f5f5f5;
+}
+
+/* Hero Section */
+.hero{
+    width:100vw;
+    height:100vh;
+    position:relative;
+    background:url('images/mindful-bg.png') center center/cover no-repeat;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Glass Overlay */
+.hero::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:
+    linear-gradient(
+        180deg,
+        rgba(255,255,255,.15),
+        rgba(255,255,255,.25)
+    );
+    backdrop-filter:blur(1px);
+}
+
+/* Navigation */
+nav{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:20;
+    padding:25px 60px;
+    display:flex;
+    align-items:center;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo img{
+    width:55px;
+}
+
+.logo span{
+    font-size:18px;
+    color:#fff;
+    font-weight:500;
+    letter-spacing:1px;
+}
+
+/* Content */
+.content{
+    position:relative;
+    z-index:10;
+    text-align:center;
+    color:white;
+    max-width:900px;
+}
+
+.content h1{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(4rem,7vw,7rem);
+    font-weight:500;
+    line-height:1;
+    text-shadow:0 5px 30px rgba(0,0,0,.2);
+}
+
+.content p{
+    margin-top:20px;
+    font-size:22px;
+    letter-spacing:6px;
+    text-transform:uppercase;
+    color:#f4e7b0;
+    text-shadow:0 0 20px rgba(255,255,255,.4);
+}
+
+/* Floating Fog */
+.fog{
+    position:absolute;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:radial-gradient(
+        circle,
+        rgba(255,255,255,.18) 0%,
+        rgba(255,255,255,.08) 40%,
+        transparent 70%
+    );
+    pointer-events:none;
+    mix-blend-mode:screen;
+    filter:blur(60px);
+    transform:translate(-50%,-50%);
+    z-index:5;
+    transition:
+        left .15s ease,
+        top .15s ease;
+}
+
+/* Snow Particles */
+.snow{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    z-index:3;
+    pointer-events:none;
+}
+
+.snow span{
+    position:absolute;
+    width:5px;
+    height:5px;
+    background:rgba(255,255,255,.7);
+    border-radius:50%;
+    animation:fall linear infinite;
+}
+
+@keyframes fall{
+    from{
+        transform:translateY(-10vh);
+        opacity:0;
+    }
+    10%{
+        opacity:1;
+    }
+    to{
+        transform:translateY(110vh);
+        opacity:0;
+    }
+}
+
+/* Bottom mist */
+.bottom-mist{
+    position:absolute;
+    bottom:-150px;
+    left:0;
+    width:100%;
+    height:400px;
+    background:
+    radial-gradient(
+        ellipse at center,
+        rgba(255,255,255,.55),
+        rgba(255,255,255,.15),
+        transparent
+    );
+    filter:blur(80px);
+    z-index:2;
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+
+    <nav>
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+            <span>HEI</span>
+        </div>
+    </nav>
+
+    <div class="content">
+        <h1>Human Energy Institute</h1>
+        <p>Coming Soon</p>
+    </div>
+
+    <div class="fog" id="fog"></div>
+
+    <div class="snow" id="snow"></div>
+
+    <div class="bottom-mist"></div>
+
+</section>
+
+<script>
+
+// Fog Mouse Follow
+const fog = document.getElementById('fog');
+
+document.addEventListener('mousemove',(e)=>{
+    fog.style.left = e.clientX + 'px';
+    fog.style.top = e.clientY + 'px';
+});
+
+// Snow Generator
+const snowContainer = document.getElementById('snow');
+
+for(let i=0;i<80;i++){
+
+    const snow = document.createElement('span');
+
+    snow.style.left = Math.random()*100 + '%';
+
+    const size = Math.random()*6+2;
+
+    snow.style.width = size + 'px';
+    snow.style.height = size + 'px';
+
+    snow.style.animationDuration =
+        Math.random()*10 + 8 + 's';
+
+    snow.style.animationDelay =
+        Math.random()*8 + 's';
+
+    snow.style.opacity =
+        Math.random();
+
+    snowContainer.appendChild(snow);
+}
+
+</script>
+
+</body>
+</html>
